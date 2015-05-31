@@ -17,7 +17,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'vistas'));
 app.set('view engine', 'ejs');
 //para poder usar plantillas parciales
-//app.use(partials());
+app.use(partials());
 
 // descomentar para el uso de favicon en la carpeta public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -27,10 +27,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(partials());
-
 //rutas
-app.use('/', rutas);//pagina principal
+app.use('/', rutas);
 
 // crea un error y lo pasa al siguiente middleware
 app.use(function(req, res, next) {

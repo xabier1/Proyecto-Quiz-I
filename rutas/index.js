@@ -14,4 +14,5 @@ router.get('/', function(req, res, next) {
 router.get('/preguntas/pregunta', controlador.pregunta);
 router.get('/preguntas/respuesta',controlador.respuesta);
 
+
 module.exports = router;

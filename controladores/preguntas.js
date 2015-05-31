@@ -14,7 +14,7 @@ exports.respuesta = function(req, res) {
   var plantilla = 'preguntas/respuesta';
   var respuesta_enviada = undefined;
   if (respuesta_recibida === "Roma") {
-    respuesta_enviada = "correcto";
+    respuesta_enviada = "Correcto";
   }else {
     respuesta_enviada = "Incorrecto";
   }
