@@ -11,6 +11,13 @@ router.get('/', function(req, res, next) {
   res.render(plantilla, datos);
 });
 
+router.get('/author', function(req, res, next) {
+  var plantilla = 'author';
+  var datos = {};
+
+  res.render(plantilla, datos);
+});
+
 router.get('/preguntas/pregunta', controlador.pregunta);
 router.get('/preguntas/respuesta',controlador.respuesta);
 
