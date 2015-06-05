@@ -5,9 +5,9 @@
   "scripts": {
     "start": "node ./bin/www"
   },
-  "engines":{
-    "node":"0.12.x",
-    "npm":"2.5.x"
+  "engines": {
+    "node": "0.12.x",
+    "npm": "2.5.x"
   },
   "dependencies": {
     "body-parser": "~1.12.4",
@@ -17,6 +17,10 @@
     "express": "~4.12.4",
     "express-partials": "^0.3.0",
     "morgan": "~1.5.3",
-    "serve-favicon": "~2.2.1"
+    "nan": "^1.8.4",
+    "node-pre-gyp": "^0.6.7",
+    "sequelize": "^1.7.10",
+    "serve-favicon": "~2.2.1",
+    "sqlite3": "^3.0.8"
   }
 }

@@ -1,11 +1,16 @@
+//cargamos los modelos
+
+var modelos = require('../modelos/modelos.js');
+
 // GET /preguntas/pregunta
 exports.pregunta = function(req, res) {
 
-  var plantilla = 'preguntas/pregunta';
-  var pregunta = "¿Capital de Italia?";
+  var pregunta1;
 
-  res.render(plantilla, { pregunta: pregunta});
-
+  modelos.Preguntas.findAll().success(function(Preguntas){
+    pregunta1 = Preguntas[0].pregunta;
+    res.render('preguntas/pregunta', { pregunta: pregunta1});
+  })
 };
 
 // GET /preguntas/respuesta
@@ -13,12 +18,20 @@ exports.respuesta = function(req, res) {
   var respuesta_recibida = req.query.respuesta;
   var plantilla = 'preguntas/respuesta';
   var respuesta_enviada = undefined;
-  if (respuesta_recibida === "Roma") {
-    respuesta_enviada = "Correcto";
-  }else {
-    respuesta_enviada = "Incorrecto";
-  }
+  var respuesta1;
 
-  res.render(plantilla, { respuesta: respuesta_enviada});
+  modelos.Preguntas.findAll().success(function(Preguntas){
+
+    respuesta1 = Preguntas[0].respuesta;
+    if (respuesta_recibida === respuesta1) {
+      respuesta_enviada = "Correcto";
+    }else {
+      respuesta_enviada = "Incorrecto";
+    }
+
+    res.render(plantilla, { respuesta: respuesta_enviada});
+  })
+
+
 
 };
