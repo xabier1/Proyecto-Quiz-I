@@ -1,0 +1,14 @@
+<table>
+    <%
+      var i,z;
+      for (i in preguntas){
+        z = +i+1;
+    %>
+        <tr>
+          <td>
+              <a href="/preguntas/<%= z %>"><%= preguntas[i].pregunta %></a>
+          </td>
+        </tr>
+    <%}%>
+
+</table>

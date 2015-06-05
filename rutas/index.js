@@ -18,8 +18,9 @@ router.get('/author', function(req, res, next) {
   res.render(plantilla, datos);
 });
 
-router.get('/preguntas/pregunta', controlador.pregunta);
-router.get('/preguntas/respuesta',controlador.respuesta);
+router.get('/preguntas', controlador.index);
+router.get('/preguntas/:quizId(\\d+)', controlador.pregunta);
+router.get('/preguntas/:quizId(\\d+)/respuesta',controlador.respuesta);
 
 
 module.exports = router;

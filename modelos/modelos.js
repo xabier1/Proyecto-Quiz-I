@@ -25,6 +25,10 @@ sequelize.sync().success(function() {
               Preguntas.create({
                   pregunta: 'Capital de Italia',
                   respuesta: 'Roma'
+              });
+              Preguntas.create({
+                  pregunta: 'Capital de Portugal',
+                  respuesta: 'Lisboa'
               })
               .success(function(){
                   console.log('Base de datos inicializada');
