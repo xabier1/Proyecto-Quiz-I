@@ -2,6 +2,25 @@
 
 var modelos = require('../modelos/modelos.js');
 
+//Autoload - factoriza el codigo si ruta incluye :quizId
+exports.load = function(req, res, next, quizId) {
+
+  modelos.Preguntas.find(quizId).then(
+    function (quiz) {
+        //verifica si el id que buscamos existe
+        if (quiz) {
+          req.quiz = quiz;
+          next();
+        }else {
+          //se genera un error
+          next(new Error ('No existe esta pregunta = ' + quizId));
+        }
+    }
+
+  ).catch(function(error) {next(error);});
+
+};
+
 // GET /preguntas
 exports.index = function(req, res) {
 
@@ -13,36 +32,26 @@ exports.index = function(req, res) {
 
 };
 
-// GET /preguntas/pregunta
+// GET /preguntas/:quizId
 exports.pregunta = function(req, res) {
 
-  var pregunta1;
+  res.render('preguntas/pregunta', { pregunta: req.quiz});
 
-  modelos.Preguntas.find(req.params.quizId).then(function(Preguntas){
-    pregunta1 = Preguntas;
-    res.render('preguntas/pregunta', { pregunta: pregunta1});
-  })
 };
 
-// GET /preguntas/respuesta
+// GET /preguntas/:quizId/respuesta
 exports.respuesta = function(req, res) {
   var respuesta_recibida = req.query.respuesta;
   var plantilla = 'preguntas/respuesta';
   var respuesta_enviada = undefined;
-  var respuesta1;
+  var respuesta1 = req.quiz.respuesta;
 
-  modelos.Preguntas.find(req.params.quizId).then(function(Preguntas){
-
-    respuesta1 = Preguntas.respuesta;
-    if (respuesta_recibida === respuesta1) {
+  if (respuesta_recibida === respuesta1) {
       respuesta_enviada = "Correcto";
-    }else {
+  }else {
       respuesta_enviada = "Incorrecto";
-    }
+  }
 
-    res.render(plantilla, { respuesta: respuesta_enviada, id: Preguntas.id});
-  })
-
-
+  res.render(plantilla, { respuesta: respuesta_enviada, id: req.quiz.id});
 
 };

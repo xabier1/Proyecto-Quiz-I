@@ -4,6 +4,10 @@ var router = express.Router();
 //variables de los controladores
 var controlador = require('../controladores/preguntas');
 
+//cargamos autoload para poder evitar posibles errores
+//con el id de las preguntas
+router.param('quizId', controlador.load); //autoload con el parametro :quizId
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var plantilla = "index";
