@@ -1,0 +1,19 @@
+<h3>Preguntas encontradas</h3>
+
+    <table>
+        <%
+          var i;
+          for (i in preguntas){
+        %>
+            <tr>
+              <td>
+                  <a href="/preguntas/<%= preguntas[i].id %>"><%= preguntas[i].pregunta %></a>
+              </td>
+            </tr>
+        <%}%>
+
+    </table>
+
+<p>
+  <a href="/preguntas">Volver</a>
+</p>

@@ -1,14 +1,25 @@
-<table>
-    <%
-      var i,z;
-      for (i in preguntas){
-        z = +i+1;
-    %>
-        <tr>
-          <td>
-              <a href="/preguntas/<%= z %>"><%= preguntas[i].pregunta %></a>
-          </td>
-        </tr>
-    <%}%>
+<h3>Busqueda de preguntas</h3>
 
-</table>
+    <form method="get" action="/preguntas">
+
+      <label>Buscar pregunta que contenga el texto:</label>
+      <input type="text" name="search" placeholder="Introduzca el texto a buscar" />
+      <input type="submit" value="Buscar" >
+    </form>
+
+<h3>Lista de preguntas</h3>
+
+    <table>
+        <%
+          var i,z;
+          for (i in preguntas){
+            z = +i+1;
+        %>
+            <tr>
+              <td>
+                  <a href="/preguntas/<%= z %>"><%= preguntas[i].pregunta %></a>
+              </td>
+            </tr>
+        <%}%>
+
+    </table>
