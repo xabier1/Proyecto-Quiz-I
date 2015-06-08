@@ -41,9 +41,9 @@ var Preguntas = sequelize.import(path.join(__dirname,'preguntas'));
 exports.Preguntas = Preguntas;
 
 //sequelize.sync() crea y iniciliaza tabla de preguntas en DB
-sequelize.sync().success(function() {
-      //success(...) ejecuta el manejador una vez creada la tabla
-      Preguntas.count().success(function(count){
+sequelize.sync().then(function() {
+      //then(...) ejecuta el manejador una vez creada la tabla
+      Preguntas.count().then(function(count){
           //la tabla solo se inicializa si esta vacia
           if (count === 0) {
               Preguntas.create({

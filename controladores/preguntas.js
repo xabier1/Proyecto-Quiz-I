@@ -26,7 +26,7 @@ exports.index = function(req, res) {
 
   modelos.Preguntas.findAll().then(function(Preguntas){
 
-      res.render('preguntas/index', {preguntas: Preguntas});
+      res.render('preguntas/index', {preguntas: Preguntas, errores:[]});
 
   })
 
@@ -35,7 +35,7 @@ exports.index = function(req, res) {
 // GET /preguntas/:quizId
 exports.pregunta = function(req, res) {
 
-  res.render('preguntas/pregunta', { pregunta: req.quiz});
+  res.render('preguntas/pregunta', { pregunta: req.quiz, errores:[]});
 
 };
 
@@ -52,7 +52,7 @@ exports.respuesta = function(req, res) {
       respuesta_enviada = "Incorrecto";
   }
 
-  res.render(plantilla, { respuesta: respuesta_enviada, id: req.quiz.id});
+  res.render(plantilla, { respuesta: respuesta_enviada, id: req.quiz.id, errores:[]});
 
 };
 
@@ -64,7 +64,7 @@ exports.nuevo = function(req, res) {
       respuesta:"Respuesta"
   });
 
-  res.render('preguntas/nuevo', {pregunta: pregunta});
+  res.render('preguntas/nuevo', {pregunta: pregunta, errores:[]});
 };
 
 // POST /preguntas/crear
@@ -73,10 +73,19 @@ exports.crear = function(req, res) {
 
   var pregunta = modelos.Preguntas.build(req.body.datos);
   //guardar datos en ls columnas pregunta y respuesta
-  pregunta.save({fields: ["pregunta", "respuesta"]})
-    .then(function(){
-      //cuando se han guardado los datos, se redirecciona
-      res.redirect('/preguntas');
+  pregunta
+  .validate()//validar datos
+  .then(function(err){
+      //Si existen errores
+      if (err) {
+        res.render('preguntas/nuevo', {pregunta: pregunta, errores: err.errors});
+      }else {
+        pregunta
+        .save({fields: ["pregunta", "respuesta"]})//se guardan los datos
+        .then(function(){ res.redirect('/preguntas'); }) //se redirecciona
+      }
+
+
     });
 
 };

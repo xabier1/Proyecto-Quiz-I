@@ -11,13 +11,13 @@ router.param('quizId', controlador.load); //autoload con el parametro :quizId
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var plantilla = "index";
-  var datos = { title: 'Quiz' };
+  var datos = { title: 'Quiz', errores:[] };
   res.render(plantilla, datos);
 });
 
 router.get('/author', function(req, res, next) {
   var plantilla = 'author';
-  var datos = {};
+  var datos = {errores:[]};
 
   res.render(plantilla, datos);
 });
@@ -37,7 +37,7 @@ router.get('/preguntas', function(req, res, next) {
       where: ["pregunta like ?",buscar1]
     }).then(function(preguntas){
       //se manda los datos a la plantilla para renderizar
-      res.render('preguntas/pre_encontradas', { preguntas: preguntas});
+      res.render('preguntas/pre_encontradas', { preguntas: preguntas, errores:[]});
 
     })
 
