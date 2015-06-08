@@ -5,7 +5,7 @@ var modelos = require('../modelos/modelos.js');
 //Autoload - factoriza el codigo si ruta incluye :quizId
 exports.load = function(req, res, next, quizId) {
 
-  modelos.Preguntas.find(quizId).then(
+  modelos.Preguntas.findById(quizId).then(
     function (quiz) {
         //verifica si el id que buscamos existe
         if (quiz) {
@@ -81,6 +81,38 @@ exports.crear = function(req, res) {
         res.render('preguntas/nuevo', {pregunta: pregunta, errores: err.errors});
       }else {
         pregunta
+        .save({fields: ["pregunta", "respuesta"]})//se guardan los datos
+        .then(function(){ res.redirect('/preguntas'); }) //se redirecciona
+      }
+
+
+    });
+
+};
+
+// GET /preguntas/:quizId(\\d+)/editar
+exports.editar = function(req, res) {
+
+  var pregunta = req.quiz; //autoload de instancia de quiz
+  res.render('preguntas/editar', {pregunta: pregunta, id: pregunta.id, errores:[]});
+};
+
+//PUT /preguntas/:quizId
+
+exports.actualizar = function(req, res) {
+
+  req.quiz.pregunta = req.body.datos.pregunta;
+  req.quiz.respuesta = req.body.datos.respuesta;
+
+  //guardar datos en las columnas pregunta y respuesta
+  req.quiz
+  .validate()//validar datos
+  .then(function(err){
+      //Si existen errores
+      if (err) {
+        res.render('preguntas/editar', {pregunta: req.quiz, errores: err.errors});
+      }else {
+        req.quiz
         .save({fields: ["pregunta", "respuesta"]})//se guardan los datos
         .then(function(){ res.redirect('/preguntas'); }) //se redirecciona
       }
