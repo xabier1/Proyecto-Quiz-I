@@ -52,6 +52,8 @@ router.get('/preguntas', function(req, res, next) {
 router.get('/preguntas', controlador.index);
 router.get('/preguntas/:quizId(\\d+)', controlador.pregunta);
 router.get('/preguntas/:quizId(\\d+)/respuesta',controlador.respuesta);
+router.get('/preguntas/nuevo',controlador.nuevo);
+router.post('/preguntas/crear',controlador.crear);
 
 
 

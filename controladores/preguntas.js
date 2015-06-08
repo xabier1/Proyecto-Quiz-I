@@ -55,3 +55,28 @@ exports.respuesta = function(req, res) {
   res.render(plantilla, { respuesta: respuesta_enviada, id: req.quiz.id});
 
 };
+
+// GET /preguntas/nuevo
+exports.nuevo = function(req, res) {
+
+  var pregunta = modelos.Preguntas.build({
+      pregunta:"Pregunta",
+      respuesta:"Respuesta"
+  });
+
+  res.render('preguntas/nuevo', {pregunta: pregunta});
+};
+
+// POST /preguntas/crear
+
+exports.crear = function(req, res) {
+
+  var pregunta = modelos.Preguntas.build(req.body.datos);
+  //guardar datos en ls columnas pregunta y respuesta
+  pregunta.save({fields: ["pregunta", "respuesta"]})
+    .then(function(){
+      //cuando se han guardado los datos, se redirecciona
+      res.redirect('/preguntas');
+    });
+
+};
