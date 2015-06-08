@@ -56,6 +56,7 @@ router.get('/preguntas/nuevo',controlador.nuevo);
 router.post('/preguntas/crear',controlador.crear);
 router.get('/preguntas/:quizId(\\d+)/editar',controlador.editar);
 router.put('/preguntas/:quizId(\\d+)',controlador.actualizar);
+router.delete('/preguntas/:quizId(\\d+)',controlador.eliminar);
 
 
 

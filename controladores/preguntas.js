@@ -121,3 +121,14 @@ exports.actualizar = function(req, res) {
     });
 
 };
+
+//DELETE /preguntas/:quizId
+
+exports.eliminar = function(req, res) {
+
+    req.quiz.destroy().then( function() {
+
+        res.redirect('/preguntas');
+
+    }).catch(function(error){next(error)});
+};

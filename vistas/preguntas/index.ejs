@@ -19,6 +19,13 @@
               <td>
                   <a href="/preguntas/<%= z %>"><%= preguntas[i].pregunta %></a>
                   <a href="/preguntas/<%= z %>/editar"><button>Editar</button></a>
+
+                  <form method="post" action="/preguntas/<%= z %>?_method=delete" style="display:inline;">
+                    <button type="submit" onClick="return confirm('Borrar: <%= preguntas[i].pregunta %>');">
+                      borrar
+                    </button>
+                  </form>
+
               </td>
             </tr>
         <%}%>
