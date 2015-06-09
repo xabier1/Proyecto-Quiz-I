@@ -48,13 +48,15 @@ sequelize.sync().then(function() {
           if (count === 0) {
               Preguntas.create({
                   pregunta: 'Capital de Italia',
-                  respuesta: 'Roma'
+                  respuesta: 'Roma',
+                  tematica: 'otro'
               });
               Preguntas.create({
                   pregunta: 'Capital de Portugal',
-                  respuesta: 'Lisboa'
+                  respuesta: 'Lisboa',
+                  tematica: 'otro'
               })
-              .success(function(){
+              .then(function(){
                   console.log('Base de datos inicializada');
               });
           }

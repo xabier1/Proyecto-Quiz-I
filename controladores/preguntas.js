@@ -61,10 +61,11 @@ exports.nuevo = function(req, res) {
 
   var pregunta = modelos.Preguntas.build({
       pregunta:"Pregunta",
-      respuesta:"Respuesta"
+      respuesta:"Respuesta",
+      tematica: "La Tematica"
   });
 
-  res.render('preguntas/nuevo', {pregunta: pregunta, errores:[]});
+  res.render('preguntas/nuevo', {pregunta: pregunta,tematica:undefined, errores:[]});
 };
 
 // POST /preguntas/crear
@@ -81,7 +82,7 @@ exports.crear = function(req, res) {
         res.render('preguntas/nuevo', {pregunta: pregunta, errores: err.errors});
       }else {
         pregunta
-        .save({fields: ["pregunta", "respuesta"]})//se guardan los datos
+        .save({fields: ["pregunta", "respuesta", "tematica"]})//se guardan los datos
         .then(function(){ res.redirect('/preguntas'); }) //se redirecciona
       }
 
@@ -93,8 +94,19 @@ exports.crear = function(req, res) {
 // GET /preguntas/:quizId(\\d+)/editar
 exports.editar = function(req, res) {
 
-  var pregunta = req.quiz; //autoload de instancia de quiz
-  res.render('preguntas/editar', {pregunta: pregunta, id: pregunta.id, errores:[]});
+  //autoload de instancia de quiz
+  var pregunta = req.quiz;
+
+  //se envias los datos a la plantilla
+  res.render('preguntas/editar', {
+        pregunta: pregunta,
+        id: pregunta.id,
+        tematica: pregunta.tematica,
+        errores:[]
+
+  });
+
+
 };
 
 //PUT /preguntas/:quizId
@@ -103,6 +115,7 @@ exports.actualizar = function(req, res) {
 
   req.quiz.pregunta = req.body.datos.pregunta;
   req.quiz.respuesta = req.body.datos.respuesta;
+  req.quiz.tematica = req.body.datos.tematica;
 
   //guardar datos en las columnas pregunta y respuesta
   req.quiz
@@ -113,7 +126,7 @@ exports.actualizar = function(req, res) {
         res.render('preguntas/editar', {pregunta: req.quiz, errores: err.errors});
       }else {
         req.quiz
-        .save({fields: ["pregunta", "respuesta"]})//se guardan los datos
+        .save({fields: ["pregunta", "respuesta","tematica"]})//se guardan los datos
         .then(function(){ res.redirect('/preguntas'); }) //se redirecciona
       }
 

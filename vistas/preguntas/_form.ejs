@@ -3,5 +3,35 @@
 <label for="resp" class="rem">Respuesta:</label>
 <input type="text" id="resp" name="datos[respuesta]" value="<%= pregunta.respuesta %>"/> <p>
 
-<a href="/quizes"><button type="button">Cancelar</button></a>
+<label for="resp" class="rem">Tematica:</label>
+<select name="datos[tematica]">
+
+    <%
+      //añadimos las diferentes opciones
+      var seleccionado , texto;
+      // array con todas las tematicas
+      var tematicas = ["otro","humanidades","ocio","ciencia","tecnologia"];
+      // si la tematica es false, la primera opcion sera la seleccionada
+      tematica = (tematica || tematicas[0]);
+      //hacemos un for mostrando todas las opciones
+      for (var i = 0; i < tematicas.length; i++) {
+          //la primera letra se pone en mayusculas
+          texto = tematicas[i].charAt(0).toUpperCase() + tematicas[i].slice(1);
+          //se decide que opción debe estar seleccionado
+          if (tematicas[i] === tematica) {
+            seleccionado = 'selected=selected';
+          }else{
+            seleccionado = '';
+          }
+    %>
+          <option value="<%= tematicas[i]%>" <%= seleccionado %>>
+              <%= texto %>
+          </option>
+
+  <%}%>
+
+
+</select>
+
+<a href="/preguntas"><button type="button">Cancelar</button></a>
 <input type="submit" value="Salvar">
