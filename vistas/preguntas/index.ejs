@@ -1,4 +1,10 @@
-<h3>Busqueda de preguntas</h3>
+<h3>Añadir una pregunta nueva</h3>
+<a href="/preguntas/nuevo">
+    <button type="button" name="button">Crear pregunta</button>
+</a>
+
+
+<h3>Busqueda de preguntas por su contenido</h3>
 
     <form method="get" action="/preguntas">
 
@@ -7,9 +13,49 @@
       <input type="submit" value="Buscar" >
     </form>
 
+<h3>Busqueda de preguntas por su tematica</h3>
+
+  <form method="get" action="/preguntas/tematica">
+    <label for="resp" class="rem">Tematica:</label>
+    <select name="tematica">
+
+        <%
+          //añadimos las diferentes opciones
+          var texto;
+          // array con todas las tematicas
+          var tematicas = ["cualquier tematica","otro","humanidades","ocio","ciencia","tecnologia"];
+          //hacemos un for mostrando todas las opciones
+          for (var i = 0; i < tematicas.length; i++) {
+              //la primera letra se pone en mayusculas
+              texto = tematicas[i].charAt(0).toUpperCase() + tematicas[i].slice(1);
+
+        %>
+              <option value="<%= tematicas[i]%>">
+                  <%= texto %>
+              </option>
+
+      <%}%>
+
+
+    </select>
+    <button type="submit">Buscar</button>
+
+  </form>
+
 <h3>Lista de preguntas</h3>
 
     <table>
+      <tr>
+        <td>
+            Tematica
+        </td><td>
+            Pregunta
+        </td><td>
+            Editar
+        </td><td>
+            Borrar
+        </td>
+      </tr>
         <%
           var i,z;
           for (i in preguntas){
@@ -17,21 +63,19 @@
         %>
             <tr>
               <td>
+                  <span><%= preguntas[i].tematica %></span>
+              </td><td>
                   <a href="/preguntas/<%= z %>"><%= preguntas[i].pregunta %></a>
+              </td><td>
                   <a href="/preguntas/<%= z %>/editar"><button>Editar</button></a>
-
+              </td><td>
                   <form method="post" action="/preguntas/<%= z %>?_method=delete" style="display:inline;">
                     <button type="submit" onClick="return confirm('Borrar: <%= preguntas[i].pregunta %>');">
                       borrar
                     </button>
                   </form>
-
               </td>
             </tr>
         <%}%>
 
     </table>
-
-    <a href="/preguntas/nuevo">
-        <button type="button" name="button">Crear pregunta</button>
-    </a>

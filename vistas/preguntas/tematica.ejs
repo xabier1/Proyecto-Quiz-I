@@ -1,0 +1,45 @@
+<h3>Lista de preguntas sobre la tematica "<%= tema %>"</h3>
+
+  <% if (preguntas.length < 1) { %>
+
+    <p>No se ha encontrado ninguna pregunta con esta tematica.</p>
+
+  <%} else { %>
+
+      <table>
+        <tr>
+          <td>
+              Tematica
+          </td><td>
+              Pregunta
+          </td><td>
+              Editar
+          </td><td>
+              Borrar
+          </td>
+        </tr>
+          <%
+            var i,z;
+            for (i in preguntas){
+              z = preguntas[i].id;
+          %>
+              <tr>
+                <td>
+                    <span><%= preguntas[i].tematica %></span>
+                </td><td>
+                    <a href="/preguntas/<%= z %>"><%= preguntas[i].pregunta %></a>
+                </td><td>
+                    <a href="/preguntas/<%= z %>/editar"><button>Editar</button></a>
+                </td><td>
+                    <form method="post" action="/preguntas/<%= z %>?_method=delete" style="display:inline;">
+                      <button type="submit" onClick="return confirm('Borrar: <%= preguntas[i].pregunta %>');">
+                        borrar
+                      </button>
+                    </form>
+                </td>
+              </tr>
+          <%}%>
+
+      </table>
+
+  <%} %>

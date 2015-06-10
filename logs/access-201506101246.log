@@ -1,0 +1,4 @@
+::ffff:127.0.0.1 - - [10/Jun/2015:10:46:13 +0000] "GET /preguntas HTTP/1.1" 200 4570 "http://localhost:5000/preguntas/kilut/editar" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0"
+::ffff:127.0.0.1 - - [10/Jun/2015:10:46:13 +0000] "GET /css/style.css HTTP/1.1" 200 673 "http://localhost:5000/preguntas" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0"
+::ffff:127.0.0.1 - - [10/Jun/2015:10:46:13 +0000] "GET /css/wide.css HTTP/1.1" 200 267 "http://localhost:5000/preguntas" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0"
+::ffff:127.0.0.1 - - [10/Jun/2015:10:46:13 +0000] "GET /css/smartphone.css HTTP/1.1" 200 308 "http://localhost:5000/preguntas" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0"

@@ -7,7 +7,20 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials = require ('express-partials');
 var methodOverride = require('method-override');
-
+//capacidad para trabjar con el sistema de ficheros de node
+var FileStreamRotator = require('file-stream-rotator')
+var fs = require('fs');
+// create a write stream (in append mode)
+//var logss = fs.createWriteStream(__dirname + '/logs/accesos.log', {flags: 'a'})
+var logCarpeta = __dirname + '/logs' ;
+// ensure log directory exists
+fs.existsSync(logCarpeta) || fs.mkdirSync(logDirectory);
+// create a rotating write stream
+var logss = FileStreamRotator.getStream({
+  filename: logCarpeta + '/access-%DATE%.log',
+  frequency: 'daily',
+  verbose: false
+})
 //variables para el enrutamiento
 var rutas = require('./rutas/index');
 
@@ -22,7 +35,7 @@ app.use(partials());
 
 //uso de favicon en la carpeta public
 app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
+app.use(logger('combined', {stream: logss}));//config. de los logs
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
@@ -34,7 +47,7 @@ app.use('/', rutas);
 
 // crea un error y lo pasa al siguiente middleware
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  var err = new Error('La página web que intentas visitar no existe.');
   err.status = 404;
   next(err);
 });

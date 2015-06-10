@@ -145,3 +145,28 @@ exports.eliminar = function(req, res) {
 
     }).catch(function(error){next(error)});
 };
+
+// GET /preguntas/tematica
+
+exports.tematica = function(req, res) {
+
+  var tema = req.query.tematica;
+  if (tema === "cualquier tematica") {
+    var tema = ["otro","humanidades","ocio","ciencia","tecnologia"];
+  }
+
+  modelos.Preguntas.findAll({
+
+      where: {
+        tematica: tema
+      }
+  })
+  .then(function (preguntas) {
+    res.render('preguntas/tematica',{
+        preguntas:preguntas,
+        tema: req.query.tematica,
+        errores: [],
+      });
+  })
+
+};
