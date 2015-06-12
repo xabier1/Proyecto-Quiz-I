@@ -4,3 +4,35 @@
     <input type="text" name="respuesta" value="Responda aquí" />
     <input type="submit" value="Enviar" >
 </form>
+
+<p>
+    <a href="/preguntas/<%= pregunta.id %>/comentarios/nuevo">
+        <button type="button">Nuevo comentario</button>
+    </a>
+</p>
+
+
+<h3>Comentarios</h3>
+
+
+
+  <%
+
+    if (comentarios.length < 1){%>
+
+      <p>
+        No existe ningun comentario para está pregunta
+      </p>
+  <%}else{%>
+    <table>
+    <% for (i in comentarios) {%>
+
+      <tr>
+        <td>
+            <%= comentarios[i].comentario %>
+        </td>
+      </tr>
+
+    <%}%>
+    </table>
+  <%}%>

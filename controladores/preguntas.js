@@ -5,7 +5,12 @@ var modelos = require('../modelos/modelos.js');
 //Autoload - factoriza el codigo si ruta incluye :quizId
 exports.load = function(req, res, next, quizId) {
 
-  modelos.Preguntas.findById(quizId).then(
+  modelos.Preguntas.find({
+      where:{id: Number(quizId)},
+      //para añadir los datos de la tabla comentarios
+      //relacion de tablas 1:M
+      include:[{all: true}]
+  }).then(
     function (quiz) {
         //verifica si el id que buscamos existe
         if (quiz) {
@@ -35,7 +40,12 @@ exports.index = function(req, res) {
 // GET /preguntas/:quizId
 exports.pregunta = function(req, res) {
 
-  res.render('preguntas/pregunta', { pregunta: req.quiz, errores:[]});
+  res.render('preguntas/pregunta', {
+      pregunta: req.quiz,
+      comentarios: req.quiz.Comentarios,
+      errores:[]
+    });
+  
 
 };
 

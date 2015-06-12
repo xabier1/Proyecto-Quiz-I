@@ -34,11 +34,17 @@ var sequelize = new Sequelize (null, null, null,{
   dialect:"sqlite", storage:"preguntas.sqlite"
 });*/
 
-//importar la definicion de la tabla Preguntas en preguntas.js
+//importar la definicion de cada tabla
 var Preguntas = sequelize.import(path.join(__dirname,'preguntas'));
+var Comentarios = sequelize.import(path.join(__dirname,'comentarios'));
 
-//exportar la definicion de la tabla Preguntas
+//relaciones entre las tablas
+Comentarios.belongsTo(Preguntas);//indica que un comentario pertenece a una pregunta
+Preguntas.hasMany(Comentarios);//indica que una pregunta puede tener muchos comentarios
+
+//exportar la definicion de la tablas
 exports.Preguntas = Preguntas;
+exports.Comentarios = Comentarios;
 
 //sequelize.sync() crea y iniciliaza tabla de preguntas en DB
 sequelize.sync().then(function() {

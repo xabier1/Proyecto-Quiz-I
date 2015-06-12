@@ -3,6 +3,7 @@ var router = express.Router();
 var modelos = require('../modelos/modelos.js');
 //variables de los controladores
 var controlador = require('../controladores/preguntas');
+var controladorComentarios = require('../controladores/comentarios');
 
 //cargamos autoload para poder evitar posibles errores
 //con el id de las preguntas
@@ -22,6 +23,7 @@ router.get('/author', function(req, res, next) {
   res.render(plantilla, datos);
 });
 
+// rutas para las preguntas
 router.get('/preguntas', function(req, res, next) {
 
   if (req.query.search !== undefined) {
@@ -58,6 +60,10 @@ router.get('/preguntas/:quizId(\\d+)/editar',controlador.editar);
 router.put('/preguntas/:quizId(\\d+)',controlador.actualizar);
 router.delete('/preguntas/:quizId(\\d+)',controlador.eliminar);
 router.get('/preguntas/tematica',controlador.tematica);
+
+//rutas para los comentarios
+router.get('/preguntas/:quizId(\\d+)/comentarios/nuevo',controladorComentarios.nuevo);
+router.post('/preguntas/:quizId(\\d+)/comentarios',controladorComentarios.crear);
 
 
 
