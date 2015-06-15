@@ -14,7 +14,7 @@
                   <%if(!session.user){%>
                     <span class="right"><a href="/user">Usuario</a> - <a href="/login">Iniciar sesión</a></span>
                   <%}else{%>
-                    <span class="right"> <%=session.user.username%> - <a href="/user/<%=session.user.id%>/edit">Configuración</a> - <a href="/logout">Cerrar sesión</a></span>
+                    <span class="right"> <%=session.user.username%> - <!--<a href="/user/<%=session.user.id%>/edit">Configuración</a> - --><a href="/logout">Cerrar sesión</a></span>
                   <%}%>
 
                   <h2>Quiz<span>: el juego de las preguntas</span></h2>

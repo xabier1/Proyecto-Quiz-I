@@ -28,6 +28,7 @@ var rutas = require('./rutas/index');
 //se inicia la app
 var app = express();
 
+
 // configuración de las plantillas
 app.set('views', path.join(__dirname, 'vistas'));
 app.set('view engine', 'ejs');
@@ -43,6 +44,37 @@ app.use(cookieParser('dfsdffgasfdsaf546'));//se cifran las cookies con 'dfsdffga
 app.use(session());//instalamos sesiones
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
+
+// middleware para el autologout
+app.use(function (req, res, next) {
+
+  //si no existe el tiempo de la sesion se crea uno
+  var ahora = new Date().getTime();
+
+  if (req.session.inicio === undefined) {
+    req.session.inicio = ahora;
+  }
+
+  //se calcula la diferencia entre las 2 fechas
+   var duracion = ahora - req.session.inicio;
+
+  //si la duracion supera los dos minutos las sesion se elimina
+  var tiempo = 2*60*1000; //el tiempo en milisegundos (2 minutos)
+  if (duracion > timepo) {
+    //se elimina la variable inicio de la sesion
+    delete req.session.inicio;
+    // si existe un usuario en la sesion se elimina de la sesion
+    if (req.session.user) {
+      delete req.session.user;
+    }
+  } else {
+    //se actualiza los datos
+    req.session.inicio = ahora;
+  }
+
+
+  next();
+})
 
 // Helpers dinamicos: para el uso de las sesiones
 app.use(function(req, res, next) {
