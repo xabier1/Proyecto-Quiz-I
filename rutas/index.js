@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var modelos = require('../modelos/modelos.js');
+
 //variables de los controladores
 var controlador = require('../controladores/preguntas');
 var controladorComentarios = require('../controladores/comentarios');
+var controladorUsuarios = require('../controladores/sesiones');
 
 //cargamos autoload para poder evitar posibles errores
 //con el id de las preguntas
@@ -22,6 +24,10 @@ router.get('/author', function(req, res, next) {
 
   res.render(plantilla, datos);
 });
+//rutas para las sesiones de los usuarios
+router.get('/login', controladorUsuarios.nuevo); //formulario para iniciar session
+router.post('/login', controladorUsuarios.crear);//crear la sesion de un usuario
+router.get('/logout', controladorUsuarios.eliminar);//eliminar la sesion
 
 // rutas para las preguntas
 router.get('/preguntas', function(req, res, next) {

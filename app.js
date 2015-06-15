@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials = require ('express-partials');
 var methodOverride = require('method-override');
+var session = require('express-session');
 //capacidad para trabjar con el sistema de ficheros de node
 var FileStreamRotator = require('file-stream-rotator')
 var fs = require('fs');
@@ -38,9 +39,28 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('combined', {stream: logss}));//config. de los logs
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(cookieParser());
+app.use(cookieParser('dfsdffgasfdsaf546'));//se cifran las cookies con 'dfsdffgasfdsaf546'
+app.use(session());//instalamos sesiones
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
+
+// Helpers dinamicos: para el uso de las sesiones
+app.use(function(req, res, next) {
+
+  // si no existe lo inicializa
+  if (!req.session.redir) {
+    req.session.redir = '/';
+  }
+  // guardar path en session.redir para despues de login
+  if (!req.path.match(/\/login|\/logout|\/user/)) {
+    req.session.redir = req.path;
+  }
+
+  // Hacer visible req.session en las vistas
+  res.locals.session = req.session;
+  next();
+
+});
 
 //rutas
 app.use('/', rutas);
