@@ -45,7 +45,7 @@ exports.pregunta = function(req, res) {
       comentarios: req.quiz.Comentarios,
       errores:[]
     });
-  
+
 
 };
 

@@ -1,3 +1,13 @@
+//Middelare que detecta si se ha iniciado la sesion
+exports.loginRequired = function(req, res,next) {
+    if (req.session.user) {
+      next();
+    } else {
+      //se redirecciona para que el usuario inicie sesion
+      res.redirect('/login');
+    }
+};
+
 // Get /login   -- Formulario de login
 exports.nuevo = function(req, res) {
     var errors = req.session.errors || {};

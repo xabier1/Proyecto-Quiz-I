@@ -10,6 +10,7 @@ var controladorUsuarios = require('../controladores/sesiones');
 //cargamos autoload para poder evitar posibles errores
 //con el id de las preguntas
 router.param('quizId', controlador.load); //autoload con el parametro :quizId
+router.param('commentId', controladorComentarios.load); //autoload con el parametro :commentId
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -60,17 +61,20 @@ router.get('/preguntas', function(req, res, next) {
 router.get('/preguntas', controlador.index);
 router.get('/preguntas/:quizId(\\d+)', controlador.pregunta);
 router.get('/preguntas/:quizId(\\d+)/respuesta',controlador.respuesta);
-router.get('/preguntas/nuevo',controlador.nuevo);
-router.post('/preguntas/crear',controlador.crear);
-router.get('/preguntas/:quizId(\\d+)/editar',controlador.editar);
-router.put('/preguntas/:quizId(\\d+)',controlador.actualizar);
-router.delete('/preguntas/:quizId(\\d+)',controlador.eliminar);
-router.get('/preguntas/tematica',controlador.tematica);
+router.get('/preguntas/nuevo',controladorUsuarios.loginRequired,controlador.nuevo);
+router.post('/preguntas/crear',controladorUsuarios.loginRequired,controlador.crear);
+router.get('/preguntas/:quizId(\\d+)/editar',controladorUsuarios.loginRequired,controlador.editar);
+router.put('/preguntas/:quizId(\\d+)',controladorUsuarios.loginRequired,controlador.actualizar);
+router.delete('/preguntas/:quizId(\\d+)',controladorUsuarios.loginRequired,controlador.eliminar);
+router.get('/preguntas/tematica',controladorUsuarios.loginRequired,controlador.tematica);
 
 //rutas para los comentarios
 router.get('/preguntas/:quizId(\\d+)/comentarios/nuevo',controladorComentarios.nuevo);
 router.post('/preguntas/:quizId(\\d+)/comentarios',controladorComentarios.crear);
-
+router.get(
+  '/preguntas/:quizId(\\d+)/comentarios/:commentId(\\d+)/publicar',
+  controladorUsuarios.loginRequired,
+  controladorComentarios.publicar);
 
 
 module.exports = router;

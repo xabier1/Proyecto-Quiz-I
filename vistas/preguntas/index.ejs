@@ -1,7 +1,13 @@
-<h3>Añadir una pregunta nueva</h3>
-<a href="/preguntas/nuevo">
-    <button type="button" name="button">Crear pregunta</button>
-</a>
+<%
+  //solo se muestra si el usuario ha iniciado la sesion
+  if (session.user) {%>
+
+    <h3>Añadir una pregunta nueva</h3>
+    <a href="/preguntas/nuevo">
+        <button type="button" name="button">Crear pregunta</button>
+    </a>
+<%}%>
+
 
 
 <h3>Busqueda de preguntas por su contenido</h3>
@@ -50,11 +56,16 @@
             Tematica
         </td><td>
             Pregunta
-        </td><td>
+        </td>
+        <%
+          //solo se muestra si el usuario ha iniciado la sesion
+          if (session.user) {%>
+        <td>
             Editar
         </td><td>
             Borrar
         </td>
+        <%}%>
       </tr>
         <%
           var i,z;
@@ -66,7 +77,11 @@
                   <span><%= preguntas[i].tematica %></span>
               </td><td>
                   <a href="/preguntas/<%= z %>"><%= preguntas[i].pregunta %></a>
-              </td><td>
+              </td>
+              <%
+                //solo se muestra si el usuario ha iniciado la sesion
+                if (session.user) {%>
+              <td>
                   <a href="/preguntas/<%= z %>/editar"><button>Editar</button></a>
               </td><td>
                   <form method="post" action="/preguntas/<%= z %>?_method=delete" style="display:inline;">
@@ -75,6 +90,7 @@
                     </button>
                   </form>
               </td>
+              <%}%>
             </tr>
         <%}%>
 

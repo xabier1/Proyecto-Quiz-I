@@ -2,6 +2,27 @@
 
 var modelos = require('../modelos/modelos.js');
 
+//Autoload Id comentarios (:commentId)
+
+exports.load = function(req, res, next, commentId) {
+
+  modelos.Comentarios.find({
+            where: {
+                id: Number(commentId)
+            }
+  })
+  .then(function(comment) {
+      if (comment) {
+        req.comentario = comment;
+        next();
+      } else{next(new Error('No existe commentId=' + commentId))}
+  })
+  .catch(function(error){
+    next(error);
+  });
+
+}
+
 // GET /preguntas/:quizId(\\d+)/comentarios/nuevo
 
 exports.nuevo = function(req, res) {
@@ -45,6 +66,26 @@ exports.crear = function(req, res) {
             next(error);
         })
 
+  });
+
+};
+
+//GET /preguntas/:quizId(\\d+)/comentarios/:commentId(\\d+)/publicar
+
+exports.publicar = function(req, res) {
+
+  req.comentario.publicar = true;
+
+  //se actualizan los datos
+  req.comentario
+  .save( {
+    fields: ["publicar"]
+  })
+  .then( function(){
+    res.redirect('/preguntas/'+ req.params.quizId);
+  })
+  .catch(function(error){
+    next(error)
   });
 
 };

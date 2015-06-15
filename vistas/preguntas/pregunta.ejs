@@ -25,14 +25,40 @@
       </p>
   <%}else{%>
     <table>
-    <% for (i in comentarios) {%>
+    <% for (i in comentarios) {
 
-      <tr>
-        <td>
-            <%= comentarios[i].comentario %>
-        </td>
-      </tr>
+        // si se ha iniado sesión
+        if (session.user){%>
+
+          <tr>
+            <td>
+                <%= comentarios[i].comentario %>
+            </td>
+            <%
+              //si se ha iniciado sesión y el comentario está despublicado
+              //se muestra el botón para publicarlo
+              if (!comentarios[i].publicar){%>
+                <td>
+                    <a href="/preguntas/<%= pregunta.id %>/comentarios/<%= comentarios[i].id %>/publicar">
+                      <button >Publicar</button>
+                    </a>
+                </td>
+            <%}%>
+          </tr>
+        <%}else{
+          //si no se ha iniciado sesion
+          if (comentarios[i].publicar){
+            //y los comentarios estan publicados %>
+            <tr>
+              <td>
+                  <%= comentarios[i].comentario %>
+              </td>
+            </tr>
+
+        <%}%>
 
     <%}%>
     </table>
   <%}%>
+
+<%}%>
