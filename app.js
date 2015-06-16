@@ -60,10 +60,10 @@ app.use(function (req, res, next) {
 
   //si la duracion supera los dos minutos las sesion se elimina
   var tiempo = 2*60*1000; //el tiempo en milisegundos (2 minutos)
-  if (duracion > 10000) {
+  if (duracion > tiempo) {
     //se elimina la variable inicio de la sesion
     delete req.session.inicio;
-    // si existe un usuario se cierra su sesion
+    // si existe este usuario ha iniciado session, se elimina su session de usuario
     if (req.session.user) {
       delete req.session.user;
     }
