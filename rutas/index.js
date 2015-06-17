@@ -6,6 +6,7 @@ var modelos = require('../modelos/modelos.js');
 var controlador = require('../controladores/preguntas');
 var controladorComentarios = require('../controladores/comentarios');
 var controladorUsuarios = require('../controladores/sesiones');
+var controladorEstadisticas = require('../controladores/estadisticas');
 
 //cargamos autoload para poder evitar posibles errores
 //con el id de las preguntas
@@ -75,6 +76,9 @@ router.get(
   '/preguntas/:quizId(\\d+)/comentarios/:commentId(\\d+)/publicar',
   controladorUsuarios.loginRequired,
   controladorComentarios.publicar);
+
+//rutas para las estadisticas
+router.get('/preguntas/estadisticas', controladorEstadisticas.index);
 
 
 module.exports = router;

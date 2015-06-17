@@ -1,0 +1,24 @@
+{
+  "numeroPreguntasConComentarios":
+    {
+      "id":1,
+      "pregunta":"Capital de Italia",
+      "respuesta":"Roma",
+      "tematica":"otro",
+      "createdAt":"2015-06-15T14:26:10.920Z",
+      "updatedAt":"2015-06-15T14:26:10.920Z",
+      "Comentarios":
+          [
+            {
+              "id":1,
+              "comentario":"gfdg",
+              "publicar":false,
+              "createdAt":"2015-06-15T14:26:46.565Z",
+              "updatedAt":"2015-06-15T14:26:46.565Z",
+              "PreguntaId":1
+            }
+          ]
+    },
+    "numeroComentariosTotales":3,
+    "numeroPreguntasTotales":2,
+    "numeroPreguntasSinComentarios":null}

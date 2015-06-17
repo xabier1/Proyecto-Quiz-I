@@ -1,0 +1,34 @@
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Preguntas con comentarios',     <%= npcc %>],
+          ['Preguntas sin comentarios',     <%= npsc %>]
+        ]);
+
+        var options = {
+          title: 'Preguntas'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('grafica1'));
+
+        chart.draw(data, options);
+      }
+</script>
+
+<h3>Estadísticas</h3>
+
+  <p>Número de preguntas: <%= npt %></p>
+  <p>Número de comentarios totales: <%= nct %></p>
+  <p>Número medio de comentarios por pregunta: <%= nmdcpp %></p>
+  <p>Número de preguntas sin comentarios: <%= npsc %></p>
+  <p>Número de preguntas con comentarios: <%= npcc %></p>
+
+
+<h3>GRAFICA</h3>
+
+<div id="grafica1" ></div>
