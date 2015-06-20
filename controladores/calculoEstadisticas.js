@@ -11,7 +11,7 @@ contadores.f1 = function () {
     modelos.Preguntas.count()
     .then(function(c) {
       contadores.numeroPreguntasTotales = c;
-      console.log("numeroPreguntasTotales = " + c);
+      //console.log("numeroPreguntasTotales = " + c);
     })
 
 
@@ -24,7 +24,7 @@ contadores.f2 = function() {
     modelos.Comentarios.count()
     .then(function(c) {
       contadores.numeroComentariosTotales = c;
-      console.log("numeroComentariosTotales = " + c);
+      //console.log("numeroComentariosTotales = " + c);
     })
 
 
@@ -52,7 +52,7 @@ contadores.f3 = function () {
           //}
       }
       contadores.numeroPreguntasConComentarios = contar.length;
-      console.log("numeroPreguntasConComentarios = " + contar.length);
+      //console.log("numeroPreguntasConComentarios = " + contar.length);
     })
 
 

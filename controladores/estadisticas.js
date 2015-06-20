@@ -12,7 +12,8 @@ exports.index = function(req, res) {
   //calculo de datos
   n.contadores.numeroPreguntasSinComentarios = n.contadores.numeroPreguntasTotales - n.contadores.numeroPreguntasConComentarios;
   n.contadores.numeroMedioDeComentariosPorPregunta = n.contadores.numeroComentariosTotales / n.contadores.numeroPreguntasTotales;
-  console.log(n.contadores);
+  //console.log(n.contadores);
+
   res.render('estadisticas/index',{
     npt: n.contadores.numeroPreguntasTotales,
     nct: n.contadores.numeroComentariosTotales,
