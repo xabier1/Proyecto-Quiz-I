@@ -4,30 +4,35 @@ var modelos = require('../modelos/modelos.js');
 var contadores = {};
 
 //creamos las funciones
-function numeroPreguntasTotales () {
+
+//numeroPreguntasTotales
+contadores.f1 = function () {
 
     modelos.Preguntas.count()
     .then(function(c) {
       contadores.numeroPreguntasTotales = c;
+      console.log("numeroPreguntasTotales = " + c);
     })
 
 
 
 }
 
-function numeroComentariosTotales () {
+//numeroComentariosTotales
+contadores.f2 = function() {
 
     modelos.Comentarios.count()
     .then(function(c) {
       contadores.numeroComentariosTotales = c;
+      console.log("numeroComentariosTotales = " + c);
     })
 
 
 
 }
 
-
-function numeroPreguntasConComentarios () {
+//numeroPreguntasConComentarios
+contadores.f3 = function () {
 
     modelos.Preguntas.findAll({
       include:[{
@@ -47,6 +52,7 @@ function numeroPreguntasConComentarios () {
           //}
       }
       contadores.numeroPreguntasConComentarios = contar.length;
+      console.log("numeroPreguntasConComentarios = " + contar.length);
     })
 
 
@@ -54,12 +60,12 @@ function numeroPreguntasConComentarios () {
 
 
 
-//ejecutamos las funciones
+/*//ejecutamos las funciones
 
 
 numeroPreguntasTotales();
 numeroComentariosTotales();
-numeroPreguntasConComentarios();
+numeroPreguntasConComentarios();*/
 
 //Exportasmo modulos
 
