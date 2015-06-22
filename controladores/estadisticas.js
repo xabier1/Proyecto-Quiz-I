@@ -1,4 +1,4 @@
-async = require ('async');
+var async = require ('async');
 var modelos = require('../modelos/modelos.js');
 var contadores;
 // GET /estadisticas
@@ -81,13 +81,6 @@ exports.index = function(req, res, next) {
               callback(null);
           }
         ]
-  }, function(err, results) {
-      //detectamos errores
-      if (err == null) {
-        new Error('Ha ocurrido un error. No se puede calcular las estadísticas.');
-      }
-      //console.log('err = ', err);
-      //console.log('resultados = ', contadores);
   });
 
 };
